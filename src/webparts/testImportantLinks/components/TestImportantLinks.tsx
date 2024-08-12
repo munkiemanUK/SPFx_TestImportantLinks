@@ -11,7 +11,7 @@ import "@pnp/sp/lists";
 import "@pnp/sp/items";
 import { getSP } from '../pnpjsConfig';
 import {IColumn} from '@fluentui/react';
-
+import { SPHttpClient} from '@microsoft/sp-http';
 
 let panelHTML: any[] = [];
 let links: any[] = [];
@@ -27,17 +27,32 @@ export interface IListItem {
 
 const TestImportantLinks: React.FC<ITestImportantLinksProps> = (props) => {
 
-  //const {
+  const {
   //  description,
   //  isDarkTheme,
   //  environmentMessage,
   //  hasTeamsContext,
   //  userDisplayName
-  //} = props;
+    siteUrl,
+    spHttpClient
+  } = props;
+
+  const [webPartTitle, setWebPartTitle] = useState('');
+  const [grouptitle1, setGroupTitle1] = useState('');
+  const [grouptitle2, setGroupTitle2] = useState('');
+  const [grouptitle3, setGroupTitle3] = useState('');
+  const [grouptitle4, setGroupTitle4] = useState('');
+  const [grouptitle5, setGroupTitle5] = useState('');
+  const [grouptitle6, setGroupTitle6] = useState('');
+  const [grouptitle7, setGroupTitle7] = useState('');
+  const [grouptitle8, setGroupTitle8] = useState('');
+  const [grouptitle9, setGroupTitle9] = useState('');
+  const [grouptitle10, setGroupTitle10] = useState('');
 
   const [listItems, setListItems] = useState<IListItem[]>([]);
-  const [listFlag, setListFlag] = useState<boolean>(false);
-  const [columns, setColumns] = useState<IColumn[]>([
+  //const [listFlag, setListFlag] = useState<boolean>(false);
+  //const [columns, setColumns] = useState<IColumn[]>([
+  const columns: IColumn[] = [
     {
       key: "linkTitle",
       name: "",
@@ -98,7 +113,8 @@ const TestImportantLinks: React.FC<ITestImportantLinksProps> = (props) => {
       data: "number",
       isPadded: true
     }
-  ]);
+  ]
+  //]);
 
   const _sp = getSP();
 
@@ -114,6 +130,56 @@ const TestImportantLinks: React.FC<ITestImportantLinksProps> = (props) => {
     }
   }, [listItems]);
 
+  useEffect(() => {
+    console.log("componentDidMount called.");
+    console.log("Fetching CanvasContent1 WebPartData Title.");
+    (async () => {
+      const endpoint = `${siteUrl}/_api/sitepages/pages(1)?$select=CanvasContent1&expand=CanvasContent1`;
+      const rawResponse = await spHttpClient.get(endpoint, SPHttpClient.configurations.v1);
+      const jsonResponse = await rawResponse.json();
+      const jsonCanvasContent = jsonResponse.CanvasContent1;
+      const parseCanvasContent = JSON.parse(jsonCanvasContent);
+      //const webpartData = canvasContent.webPartData;
+      //console.log("canvascontent json",jsonCanvasContent);
+      console.log("canvascontent parse",parseCanvasContent);
+      //parseCanvasContent.forEach((item:any,index:number) => {
+      //let index : number = 0;
+      for(const item of parseCanvasContent){
+        console.log("webPartData Title",item.webPartData.title);
+        let itemTitle : string = item.webPartData.title;
+        let itemGroup1 : string = item.webPartData.properties.Group1Title;
+        let itemGroup2 : string = item.webPartData.properties.Group2Title;
+        let itemGroup3 : string = item.webPartData.properties.Group3Title;
+        let itemGroup4 : string = item.webPartData.properties.Group4Title;
+        let itemGroup5 : string = item.webPartData.properties.Group5Title;
+        let itemGroup6 : string = item.webPartData.properties.Group6Title;
+        let itemGroup7 : string = item.webPartData.properties.Group7Title;
+        let itemGroup8 : string = item.webPartData.properties.Group8Title;
+        let itemGroup9 : string = item.webPartData.properties.Group9Title;
+        let itemGroup10 : string = item.webPartData.properties.Group10Title;
+
+        if(item.webPartData.title === "Important Links"){
+          setWebPartTitle(itemTitle);
+          setGroupTitle1(itemGroup1);
+          setGroupTitle2(itemGroup2);
+          setGroupTitle3(itemGroup3);
+          setGroupTitle4(itemGroup4);
+          setGroupTitle5(itemGroup5);
+          setGroupTitle6(itemGroup6);
+          setGroupTitle7(itemGroup7);
+          setGroupTitle8(itemGroup8);
+          setGroupTitle9(itemGroup9);
+          setGroupTitle10(itemGroup10);
+          //break;          
+        }
+        //index++;
+      }
+      console.log(webPartTitle,grouptitle1,grouptitle2,grouptitle3,grouptitle4,grouptitle5,grouptitle6,grouptitle7,grouptitle8,grouptitle9,grouptitle10);
+
+      //})
+    })();
+  },[siteUrl,spHttpClient]);
+
   const _getListData = async () => {
     const data: IListItem[] = [];
     const view = `<View>
@@ -124,7 +190,7 @@ const TestImportantLinks: React.FC<ITestImportantLinksProps> = (props) => {
                       </OrderBy>          
                     </Query>
                   </View>`;
-    const web = Web([_sp.web, props.siteURL]);
+    const web = Web([_sp.web, props.siteUrl]);
     const response = await web.lists.getByTitle('Important Links').getItemsByCAMLQuery({ ViewXml: view });
     console.log("camlItems", response);
     response.forEach((item: { LinkName: any; LinkURL: any; LinkOrder: any; LinkBrowse: any; GroupID: any; Title: any }) => {
@@ -138,7 +204,7 @@ const TestImportantLinks: React.FC<ITestImportantLinksProps> = (props) => {
         linkGroupName: item.Title
       });
     });
-    console.log("data", data);
+    console.log("data", data,columns);
     setListItems(data);
   };
 
@@ -266,7 +332,7 @@ const TestImportantLinks: React.FC<ITestImportantLinksProps> = (props) => {
   AddPanel();
 
   return (
-    <section className={`${styles.importantLinks} ${props.hasTeamsContext ? styles.teams : ''}`}>
+    <section className={`${styles.testImportantLinks} ${props.hasTeamsContext ? styles.teams : ''}`}>
       <div className={styles.welcome}>
         <h2 className="welcome">{props.description}</h2>
         <div className="accordion accordion-flush" id="linkAccordion">

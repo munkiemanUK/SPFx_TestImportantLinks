@@ -39,7 +39,7 @@ export interface ITestImportantLinksWebPartProps {
   description: string;
   numGroups : number;
   useList : boolean;
-  siteURL: string;
+  siteUrl: string;
 
   groupTitle1 : string;
   groupTitle2 : string;
@@ -99,10 +99,13 @@ export default class TestImportantLinksWebPart extends BaseClientSideWebPart<ITe
         isDarkTheme: this._isDarkTheme,
         environmentMessage: this._environmentMessage,
         hasTeamsContext: !!this.context.sdks.microsoftTeams,
-        userDisplayName: this.context.pageContext.user.displayName
+        userDisplayName: this.context.pageContext.user.displayName,
         numGroups : this.properties.numGroups,
         useList : this.properties.useList,  
-        siteURL: this.context.pageContext.site.absoluteUrl,
+        siteUrl: this.context.pageContext.site.absoluteUrl,
+        spHttpClient: this.context.spHttpClient,
+        //context: this.context,     
+
         iconPicker1: this.properties.iconPicker1,
         iconPicker2: this.properties.iconPicker2,
         iconPicker3: this.properties.iconPicker3,

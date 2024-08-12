@@ -1,3 +1,5 @@
+import {SPHttpClient} from '@microsoft/sp-http';
+
 export interface ITestImportantLinksProps {
   description: string;
   isDarkTheme: boolean;
@@ -7,7 +9,8 @@ export interface ITestImportantLinksProps {
   
   numGroups : number;
   useList : boolean;
-  siteURL: string;
+  siteUrl: string;
+  spHttpClient: SPHttpClient;
 
   iconPicker1: string;
   iconPicker2: string;
