@@ -1,0 +1,19 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/spfx-build/config.2.0.schema.json",
+  "version": "2.0",
+  "bundles": {
+    "test-important-links-web-part": {
+      "components": [
+        {
+          "entrypoint": "./lib/webparts/testImportantLinks/TestImportantLinksWebPart.js",
+          "manifest": "./src/webparts/testImportantLinks/TestImportantLinksWebPart.manifest.json"
+        }
+      ]
+    }
+  },
+  "externals": {},
+  "localizedResources": {
+    "TestImportantLinksWebPartStrings": "lib/webparts/testImportantLinks/loc/{locale}.js",
+    "PropertyControlStrings": "node_modules/@pnp/spfx-property-controls/lib/loc/{locale}.js"
+  }
+}

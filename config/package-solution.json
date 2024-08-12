@@ -1,0 +1,40 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/spfx-build/package-solution.schema.json",
+  "solution": {
+    "name": "test-important-links-client-side-solution",
+    "id": "6f926e65-4a81-46c2-b4e9-c14c677b96b5",
+    "version": "1.0.0.0",
+    "includeClientSideAssets": true,
+    "skipFeatureDeployment": true,
+    "isDomainIsolated": false,
+    "developer": {
+      "name": "",
+      "websiteUrl": "",
+      "privacyUrl": "",
+      "termsOfUseUrl": "",
+      "mpnId": "Undefined-1.19.0"
+    },
+    "metadata": {
+      "shortDescription": {
+        "default": "Test_ImportantLinks description"
+      },
+      "longDescription": {
+        "default": "Test_ImportantLinks description"
+      },
+      "screenshotPaths": [],
+      "videoUrl": "",
+      "categories": []
+    },
+    "features": [
+      {
+        "title": "test-important-links Feature",
+        "description": "The feature that activates elements of the test-important-links solution.",
+        "id": "653fee45-e3cb-4d85-9e0f-c840b33d5c0b",
+        "version": "1.0.0.0"
+      }
+    ]
+  },
+  "paths": {
+    "zippedPackage": "solution/test-important-links.sppkg"
+  }
+}

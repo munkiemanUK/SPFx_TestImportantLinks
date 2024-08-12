@@ -1,0 +1,21 @@
+{
+  "@microsoft/generator-sharepoint": {
+    "plusBeta": false,
+    "isCreatingSolution": true,
+    "nodeVersion": "18.18.0",
+    "sdksVersions": {
+      "@microsoft/microsoft-graph-client": "3.0.2",
+      "@microsoft/teams-js": "2.12.0"
+    },
+    "version": "1.19.0",
+    "libraryName": "test-important-links",
+    "libraryId": "6f926e65-4a81-46c2-b4e9-c14c677b96b5",
+    "environment": "spo",
+    "packageManager": "npm",
+    "solutionName": "Test_ImportantLinks",
+    "solutionShortDescription": "Test_ImportantLinks description",
+    "skipFeatureDeployment": true,
+    "isDomainIsolated": false,
+    "componentType": "webpart"
+  }
+}
